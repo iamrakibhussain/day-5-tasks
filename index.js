@@ -1,6 +1,4 @@
 // Day 5 JavaScript Practice Tasks
-// প্রতিটি task-এর code আলাদা section-এ রাখা হয়েছে, যাতে logic সহজে বোঝা যায়।
-
 // ============================================================
 // Task 1: Student Grade Calculator
 // ============================================================
@@ -16,6 +14,9 @@ function calculateGrade(marks) {
   if (marks >= 40) return "C";
   return "F";
 }
+
+console.log("Task 1:", calculateGrade(85));
+console.log("Task 1 invalid:", calculateGrade(-10));
 
 // ============================================================
 // Task 2: Array Statistics
@@ -48,6 +49,8 @@ function getArrayStatistics(values) {
   };
 }
 
+console.log("Task 2:", getArrayStatistics(numbers));
+
 // ============================================================
 // Task 3: Student Search System
 // ============================================================
@@ -66,6 +69,8 @@ function searchStudent(name) {
   );
   return student || "Student not found";
 }
+
+console.log("Task 3:", searchStudent("rahim"));
 
 // ============================================================
 // Task 4: Shopping Cart Calculation
@@ -91,19 +96,7 @@ function calculateTotal(cartItems) {
   return subtotal - discount;
 }
 
-function getCartSummary(cartItems) {
-  let subtotal = 0;
-  for (const item of cartItems) subtotal += item.price * item.quantity;
-
-  const discountRate = subtotal >= 5000 ? 0.10 : subtotal >= 3000 ? 0.05 : 0;
-  const discount = subtotal * discountRate;
-  return {
-    subtotal,
-    discount,
-    discountRate: discountRate * 100,
-    total: subtotal - discount,
-  };
-}
+console.log("Task 4:", calculateTotal(cart));
 
 // ============================================================
 // Task 5: Todo Manager
@@ -137,6 +130,13 @@ function getTodos() {
   return todos.slice();
 }
 
+addTodo("Learn JavaScript");
+addTodo("Practice Array");
+addTodo("Learn React");
+completeTodo(2);
+removeTodo(3);
+console.log("Task 5:", getTodos());
+
 // ============================================================
 // Task 6: Password Validator
 // ============================================================
@@ -152,6 +152,8 @@ function validatePassword(password) {
   // কোনো error না থাকলে valid, নাহলে missing requirement-গুলো দেখানো হয়।
   return errors.length === 0 ? "Valid Password" : errors.join("\n");
 }
+
+console.log("Task 6:", validatePassword("Hello123"));
 
 // ============================================================
 // Task 7: Expense Tracker
@@ -184,13 +186,10 @@ function getAverageExpense() {
   return expenses.length === 0 ? 0 : getTotalExpense() / expenses.length;
 }
 
-function getCategoryTotals() {
-  const totals = {};
-  for (const expense of expenses) {
-    totals[expense.category] = (totals[expense.category] || 0) + expense.amount;
-  }
-  return totals;
-}
+console.log("Task 7 total:", getTotalExpense());
+console.log("Task 7 Food:", getExpenseByCategory("Food"));
+console.log("Task 7 highest:", getHighestExpense());
+console.log("Task 7 average:", getAverageExpense());
 
 // ============================================================
 // Task 8: User Data Processor
@@ -220,9 +219,10 @@ function getUserByName(name) {
   ) || "User not found";
 }
 
-function getActiveAdultUsers() {
-  return usersForProcessing.filter((user) => user.active && user.age >= 18);
-}
+console.log("Task 8 active users:", getActiveUsers());
+console.log("Task 8 adult users:", getAdultUsers());
+console.log("Task 8 names:", getUserNames());
+console.log("Task 8 Rahim:", getUserByName("Rahim"));
 
 // ============================================================
 // Task 9: Simple Authentication System
@@ -240,6 +240,9 @@ function login(username, password) {
 
   return { success: true, message: "Login successful", username: user.username };
 }
+
+console.log("Task 9 success:", login("rahim", "1234"));
+console.log("Task 9 wrong password:", login("rahim", "9999"));
 
 // ============================================================
 // Task 10: Mini Student Management System
@@ -297,87 +300,11 @@ function getTopStudent() {
 // README-র searchStudent নামটি Task 3-এ ব্যবহৃত হয়েছে, তাই Task 10-এ
 // একই কাজের function-এর নাম searchStudentByName রাখা হয়েছে।
 
-// ============================================================
-// Sample Run: node index.js
-// ============================================================
-if (require.main === module) {
-  console.log("Task 1:", calculateGrade(85), calculateGrade(-10));
-  console.log("Task 2:", getArrayStatistics(numbers));
-  console.log("Task 3:", searchStudent("rahim"));
-  console.log("Task 4:", calculateTotal(cart), getCartSummary(cart));
-
-  addTodo("Learn JavaScript");
-  addTodo("Practice Array");
-  addTodo("Learn React");
-  completeTodo(2);
-  removeTodo(3);
-  console.log("Task 5:", getTodos());
-
-  console.log("Task 6:", validatePassword("Hello123"));
-  console.log("Task 7:", {
-    total: getTotalExpense(),
-    food: getExpenseByCategory("food"),
-    highest: getHighestExpense(),
-    average: getAverageExpense(),
-    categoryTotals: getCategoryTotals(),
-  });
-  console.log("Task 8:", {
-    active: getActiveUsers(),
-    adults: getAdultUsers(),
-    names: getUserNames(),
-    activeAdults: getActiveAdultUsers(),
-  });
-  console.log("Task 9:", login("rahim", "1234"), login("rahim", "9999"));
-
-  addStudent({ id: 1, name: "Rahim", age: 22, course: "JavaScript", marks: 85 });
-  addStudent({ id: 2, name: "Karim", age: 21, course: "React", marks: 72 });
-  addStudent({ id: 3, name: "Hasan", age: 23, course: "JavaScript", marks: 91 });
-  console.log("Task 10:", {
-    searched: searchStudentByName("Rahim"),
-    javascriptStudents: getStudentsByCourse("JavaScript"),
-    passed: getPassedStudents(),
-    averageMarks: getAverageMarks(),
-    topStudent: getTopStudent(),
-  });
-}
-
-// অন্য file থেকে function import করে test করার সুবিধার জন্য export করা হয়েছে।
-module.exports = {
-  calculateGrade,
-  numbers,
-  getArrayStatistics,
-  studentsForSearch,
-  searchStudent,
-  cart,
-  calculateTotal,
-  getCartSummary,
-  todos,
-  addTodo,
-  removeTodo,
-  completeTodo,
-  getTodos,
-  validatePassword,
-  expenses,
-  getTotalExpense,
-  getExpenseByCategory,
-  getHighestExpense,
-  getAverageExpense,
-  getCategoryTotals,
-  usersForProcessing,
-  getActiveUsers,
-  getAdultUsers,
-  getUserNames,
-  getUserByName,
-  getActiveAdultUsers,
-  authUsers,
-  login,
-  students,
-  addStudent,
-  removeStudent,
-  findStudent,
-  searchStudentByName,
-  getStudentsByCourse,
-  getPassedStudents,
-  getAverageMarks,
-  getTopStudent,
-};
+addStudent({ id: 1, name: "Rahim", age: 22, course: "JavaScript", marks: 85 });
+addStudent({ id: 2, name: "Karim", age: 21, course: "React", marks: 72 });
+addStudent({ id: 3, name: "Hasan", age: 23, course: "JavaScript", marks: 91 });
+console.log("Task 10 search:", searchStudentByName("Rahim"));
+console.log("Task 10 by course:", getStudentsByCourse("JavaScript"));
+console.log("Task 10 passed:", getPassedStudents());
+console.log("Task 10 average marks:", getAverageMarks());
+console.log("Task 10 top student:", getTopStudent());
